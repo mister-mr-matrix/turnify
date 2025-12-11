@@ -24,7 +24,7 @@ func New(cfg config.Config) RouterWrapper {
 	mux.Use(middleware.Recoverer)
 	mux.Use(cors.Handler(cors.Options{
 		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
+		AllowedMethods:   []string{"GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"},
 		AllowedHeaders:   []string{"*"},
 		AllowCredentials: false,
 		MaxAge:           300,
