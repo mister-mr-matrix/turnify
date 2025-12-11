@@ -22,13 +22,7 @@ type RouterWrapper struct {
 func New(cfg config.Config) RouterWrapper {
 	mux := chi.NewRouter()
 	mux.Use(middleware.Recoverer)
-	mux.Use(cors.Handler(cors.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"GET", "HEAD", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"},
-		AllowedHeaders:   []string{"*"},
-		AllowCredentials: false,
-		MaxAge:           300,
-	}))
+	mux.Use(cors.AllowAll().Handler)
 	mux.Use(middleware.StripSlashes)
 
 	mux.Get("/*", func(w http.ResponseWriter, r *http.Request) {
