@@ -174,7 +174,7 @@ func handleRequest(cfg config.Config, w http.ResponseWriter, r *http.Request) {
 
 	slog.Debug("Copying response headers for Turnify response")
 	for key, values := range proxyResp.Header {
-		if strings.ToUpper(key) == "CONTENT-LENGTH" || strings.ToUpper(key) == "TRANSFER-ENCODING" {
+		if strings.ToUpper(key) == "CONTENT-LENGTH" || strings.ToUpper(key) ==  "CONTENT-ENCODING" || strings.ToUpper(key) == "TRANSFER-ENCODING" {
 			continue
 		}
 
