@@ -5,7 +5,7 @@ const (
 	TurnifyPortEnv              = "TURNIFY_PORT"
 	MatrixHomeserverUrlEnv      = "TURNIFY_MATRIX_HOMESERVER_URL"
 	CFTurnTokenIDEnv            = "TURNIFY_CF_TURN_TOKEN_ID"
-	CFTurnApiTokenEnv           = "TURNIFY_CF_API_TOKEN"
+	CFTurnApiTokenEnv           = "TURNIFY_CF_TURN_API_TOKEN"
 	TurnCredentialTTLSecondsEnv = "TURNIFY_TURN_CREDENTIAL_TTL_SECONDS"
 )
 
