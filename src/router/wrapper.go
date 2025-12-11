@@ -22,18 +22,10 @@ type RouterWrapper struct {
 func New(cfg config.Config) RouterWrapper {
 	mux := chi.NewRouter()
 	mux.Use(middleware.Recoverer)
-	mux.Use(compress(3))
 	mux.Use(cors.Handler(cors.Options{
-		AllowedOrigins: []string{cfg.TurnifyUrl},
-		AllowedMethods: []string{"GET", "OPTIONS"},
-		AllowedHeaders: []string{
-			"Accept",
-			"Accept-Encoding",
-			"Accept-Language",
-			"Access-Control-Request-Headers",
-			"Access-Control-Request-Method",
-			"Origin",
-		},
+		AllowedOrigins:   []string{"*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"},
+		AllowedHeaders:   []string{"*"},
 		AllowCredentials: false,
 		MaxAge:           300,
 	}))
