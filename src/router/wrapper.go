@@ -9,7 +9,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
-	"github.com/go-chi/cors"
 
 	"github.com/mister-mr-matrix/turnify/src/config"
 )
@@ -22,11 +21,13 @@ type RouterWrapper struct {
 func New(cfg config.Config) RouterWrapper {
 	mux := chi.NewRouter()
 	mux.Use(middleware.Recoverer)
-	mux.Use(cors.AllowAll().Handler)
 	mux.Use(middleware.StripSlashes)
 
+	mux.Options("/*", func(w http.ResponseWriter, r *http.Request) {
+		handleRequestOPTIONS(cfg, w, r)
+	})
 	mux.Get("/*", func(w http.ResponseWriter, r *http.Request) {
-		handleRequest(cfg, w, r)
+		handleRequestGET(cfg, w, r)
 	})
 
 	return RouterWrapper{mux: mux, port: cfg.TurnifyPort}
