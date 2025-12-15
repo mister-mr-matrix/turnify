@@ -56,10 +56,6 @@ func handleRequestOPTIONS(cfg config.Config, w http.ResponseWriter, r *http.Requ
 
 	slog.Debug("Copying all headers")
 	for key, values := range r.Header {
-		if strings.ToUpper(key) == "HOST" {
-			continue
-		}
-
 		if len(values) == 0 {
 			panic(fmt.Sprintf("(r.Header) Empty values array in headers for key %s", key))
 		}
@@ -68,6 +64,7 @@ func handleRequestOPTIONS(cfg config.Config, w http.ResponseWriter, r *http.Requ
 			proxyReq.Header.Add(key, v)
 		}
 	}
+	proxyReq.Header.Del("HOST")
 
 	slog.Debug("Proxying request")
 	client := http.Client{Timeout: 10 * time.Second}
@@ -116,10 +113,6 @@ func handleRequestGET(cfg config.Config, w http.ResponseWriter, r *http.Request)
 
 	slog.Debug("Copying all headers")
 	for key, values := range r.Header {
-		if strings.ToUpper(key) == "HOST" {
-			continue
-		}
-
 		if len(values) == 0 {
 			panic(fmt.Sprintf("(r.Header) Empty values array in headers for key %s", key))
 		}
@@ -128,6 +121,7 @@ func handleRequestGET(cfg config.Config, w http.ResponseWriter, r *http.Request)
 			proxyReq.Header.Add(key, v)
 		}
 	}
+	proxyReq.Header.Del("HOST")
 
 	slog.Debug("Proxying request")
 	client := http.Client{Timeout: 10 * time.Second}
